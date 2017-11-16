@@ -9,13 +9,35 @@ import java.util.Scanner;
 public class MoneyCalculator {
 
     public static void main(String[] args) throws Exception {
+        MoneyCalculator moneyCalculator = new MoneyCalculator();
+        moneyCalculator.execute();
+    }
+    
+    private double amount;
+    private double exchangeRate; 
+    
+    private void execute() throws Exception {
+        input();
+        process();
+        output();
+    }
+    
+
+    private void input() {
         System.out.println("Introduzca una cantidad de dolares");
         Scanner scanner = new Scanner(System.in);
-        double amount = Double.parseDouble(scanner.next());                
-        double exchangeRate = getExchangeRate("USD", "EUR");
-        System.out.println(amount + " USD equivalen a " + amount * exchangeRate + "EUR");        
+        amount = Double.parseDouble(scanner.next());   
     }
-        private static double getExchangeRate(String from, String to) throws Exception{
+
+    private void process() throws Exception {
+        exchangeRate = getExchangeRate("USD", "EUR");
+    }
+
+    private void output() {
+        System.out.println(amount+" USD equivalen a "+ amount*exchangeRate+"EUR");
+    }
+    
+    private static double getExchangeRate(String from, String to) throws Exception{
         URL url = new URL("http://api.fixer.io/latest?base=" + from + "&symbols=" + to);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
@@ -26,5 +48,6 @@ public class MoneyCalculator {
             return Double.parseDouble(line);
         }
     }
+    
     
 }
