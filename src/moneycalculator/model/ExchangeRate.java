@@ -1,4 +1,4 @@
-package moneycalculator;
+package moneycalculator.model;
 
 import java.util.Date;
 
